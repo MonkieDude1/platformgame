@@ -2,20 +2,42 @@ import React from "react";
 import { StyleSheet, View, TouchableOpacity, Alert, Text } from "react-native";
 
 export class Controller extends React.Component {
-  onPressAction = () => {
-    Alert.alert("Action pressed");
+  state = {
+    actionPressed: false
   };
+
+  onPressActionIn = () => {
+    this.setState({
+      actionPressed: true,
+      actionTimer: setInterval(this.onActionInterval, 20)
+    });
+  };
+  onPressActionOut = () => {
+    clearInterval(this.state.actionTimer);
+    this.setState({
+      actionPressed: false,
+      actionTimer: null
+    });
+  };
+  onActionInterval = () => {
+    this.props.onAction();
+  };
+
   onPressLeft = () => {
-    Alert.alert("Left pressed")
+    Alert.alert("Left pressed");
   };
   onPressRight = () => {
-    Alert.alert("Right pressed")
+    Alert.alert("Right pressed");
   };
 
   render() {
-    return (    
-    <View style={styles.container}>
-        <TouchableOpacity style={styles.action} onPress={this.onPressAction}>
+    return (
+      <View style={styles.container}>
+        <TouchableOpacity
+          style={styles.action}
+          onPressIn={this.onPressActionIn}
+          onPressOut={this.onPressActionOut}
+        >
           <Text style={styles.actionText}>A</Text>
         </TouchableOpacity>
 
@@ -26,13 +48,10 @@ export class Controller extends React.Component {
         <TouchableOpacity style={styles.right} onPress={this.onPressRight}>
           <Text style={styles.actionText}>right</Text>
         </TouchableOpacity>
-    </View>
+      </View>
     );
   }
-
-
 }
-
 
 const styles = StyleSheet.create({
   container: {
@@ -51,7 +70,7 @@ const styles = StyleSheet.create({
     backgroundColor: "green",
     justifyContent: "center",
     alignItems: "center",
-    marginLeft: 10,
+    marginLeft: 10
   },
   right: {
     width: 66,
@@ -61,7 +80,7 @@ const styles = StyleSheet.create({
     backgroundColor: "green",
     justifyContent: "center",
     alignItems: "center",
-    marginLeft: 10,
+    marginLeft: 10
   },
   action: {
     width: 66,
@@ -83,5 +102,5 @@ const styles = StyleSheet.create({
   actionRight: {
     color: "white",
     fontSize: 20
-  },
+  }
 });
