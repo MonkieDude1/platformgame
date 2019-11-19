@@ -5,17 +5,34 @@ export class Controller extends React.Component {
   onPressAction = () => {
     Alert.alert("Action pressed");
   };
+  onPressLeft = () => {
+    Alert.alert("Left pressed")
+  };
+  onPressRight = () => {
+    Alert.alert("Right pressed")
+  };
 
   render() {
-    return (
-      <View style={styles.container}>
+    return (    
+    <View style={styles.container}>
         <TouchableOpacity style={styles.action} onPress={this.onPressAction}>
           <Text style={styles.actionText}>A</Text>
         </TouchableOpacity>
-      </View>
+
+        <TouchableOpacity style={styles.left} onPress={this.onPressLeft}>
+          <Text style={styles.actionText}>left</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.right} onPress={this.onPressRight}>
+          <Text style={styles.actionText}>right</Text>
+        </TouchableOpacity>
+    </View>
     );
   }
+
+
 }
+
 
 const styles = StyleSheet.create({
   container: {
@@ -26,10 +43,31 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
     paddingHorizontal: 20
   },
-  action: {
-    width: 44,
-    height: 44,
+  left: {
+    width: 66,
+    height: 66,
     borderRadius: 22,
+    flex: 1,
+    backgroundColor: "green",
+    justifyContent: "center",
+    alignItems: "center",
+    marginLeft: 10,
+  },
+  right: {
+    width: 66,
+    height: 66,
+    borderRadius: 22,
+    flex: 1,
+    backgroundColor: "green",
+    justifyContent: "center",
+    alignItems: "center",
+    marginLeft: 10,
+  },
+  action: {
+    width: 66,
+    height: 66,
+    borderRadius: 22,
+    flex: 2,
     backgroundColor: "green",
     justifyContent: "center",
     alignItems: "center"
@@ -37,5 +75,13 @@ const styles = StyleSheet.create({
   actionText: {
     color: "white",
     fontSize: 20
-  }
+  },
+  actionLeft: {
+    color: "white",
+    fontSize: 20
+  },
+  actionRight: {
+    color: "white",
+    fontSize: 20
+  },
 });
