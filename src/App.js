@@ -38,6 +38,45 @@ export class App extends React.Component {
       }
     });
   };
+  
+  onLeft = () => {
+    const { x, y } = this.state.character;
+    const{ width, height } = this.state.playingField;
+  
+    if (x -5 <= 0) {
+      return;
+    }
+    this.setState({
+      character: {
+        x: x - 5,
+        y,
+      }
+   });
+  };
+  
+  onRight = () => {
+    const { x, y } = this.state.character;
+    const { width, height } = this.state.playingField;
+
+    if (x + 5 + Character.defaultProps.width >= width) {
+      this.setState({
+        character: {
+          x: x,
+          y,
+        }
+     });  
+    }
+    else {
+
+    this.setState({
+      character: {
+        x: x + 5,
+        
+        y,
+      }
+   });
+  }
+  };
 
   render() {
     const { character } = this.state;
@@ -54,7 +93,7 @@ export class App extends React.Component {
             ]}
           />
         </View>
-        <Controller onAction={this.onAction} />
+        <Controller onAction={this.onAction} onLeft={this.onLeft} onRight={this.onRight}/>
       </View>
     );
   }

@@ -23,12 +23,40 @@ export class Controller extends React.Component {
     this.props.onAction();
   };
 
-  onPressLeft = () => {
-    Alert.alert("Left pressed");
+  onPressLeftIn = () => {
+    this.setState({
+      leftPressed: true,
+      leftTimer: setInterval(this.onLeftInterval, 20)
+    });
   };
+  onPressLeftOut = () => {
+    clearInterval(this.state.leftTimer);
+    this.setState({
+      leftPressed: false,
+      leftTimer: null
+    });
+  };
+  onLeftInterval = () => {
+    this.props.onLeft();}
+
   onPressRight = () => {
     Alert.alert("Right pressed");
   };
+  onPressRightIn = () => {
+    this.setState({
+      rightPressed: true,
+      rightTimer: setInterval(this.onRightInterval, 20)
+    });
+  };
+  onPressRightOut = () => {
+    clearInterval(this.state.rightTimer);
+    this.setState({
+      rightPressed: false,
+      rightTimer: null
+    });
+  };
+  onRightInterval = () => {
+    this.props.onRight();}
 
   render() {
     return (
@@ -41,11 +69,13 @@ export class Controller extends React.Component {
           <Text style={styles.actionText}>A</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.left} onPress={this.onPressLeft}>
+        <TouchableOpacity style={styles.left} onPressIn={this.onPressLeftIn}
+        onPressOut={this.onPressLeftOut}>
           <Text style={styles.actionText}>left</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.right} onPress={this.onPressRight}>
+        <TouchableOpacity style={styles.right} onPressIn={this.onPressRightIn}
+        onPressOut={this.onPressRightOut}>
           <Text style={styles.actionText}>right</Text>
         </TouchableOpacity>
       </View>
